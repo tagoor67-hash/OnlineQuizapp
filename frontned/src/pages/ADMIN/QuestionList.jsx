@@ -21,7 +21,7 @@ const QuestionList = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/courses/topics/${courseName}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/topics/${courseName}`);
         setTopics(response.data || []);
       } catch (err) {
         console.error("Error fetching course topics:", err);
@@ -35,7 +35,7 @@ const QuestionList = () => {
       if (!selectedTopicId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/courses/questions/${courseName}/${selectedTopicId}`
+          `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/questions/${courseName}/${selectedTopicId}`
         );
         setQuestions(response.data || []);
       } catch (err) {
@@ -64,7 +64,7 @@ const QuestionList = () => {
     }
     try {
       await axios.post(
-        `http://localhost:5000/api/courses/addcourse/${courseName}/topics/${selectedTopicId}/questions`,
+        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/addcourse/${courseName}/topics/${selectedTopicId}/questions`,
         {
           question: newQuestionData.question,
           options: newQuestionData.options,
@@ -72,7 +72,7 @@ const QuestionList = () => {
         }
       );
       const response = await axios.get(
-        `http://localhost:5000/api/courses/questions/${courseName}/${selectedTopicId}`
+        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/questions/${courseName}/${selectedTopicId}`
       );
       setQuestions(response.data || []);
       setNewQuestionData({ question: "", options: ["", "", "", ""], answer: "" });
@@ -101,7 +101,7 @@ const QuestionList = () => {
     }
     try {
       await axios.put(
-        `http://localhost:5000/api/courses/updatequestion/${courseName}/${selectedTopicId}/${editQuestionData.id}`,
+        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/updatequestion/${courseName}/${selectedTopicId}/${editQuestionData.id}`,
         {
           question: editQuestionData.question,
           options: editQuestionData.options,
@@ -109,7 +109,7 @@ const QuestionList = () => {
         }
       );
       const response = await axios.get(
-        `http://localhost:5000/api/courses/questions/${courseName}/${selectedTopicId}`
+        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/questions/${courseName}/${selectedTopicId}`
       );
       setQuestions(response.data || []);
       setEditQuestionData(null);

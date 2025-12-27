@@ -22,7 +22,7 @@ const Certificate = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/courses/");
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/`);
       console.log("Fetched Courses:", response.data);
 
       // Expecting course objects like { name: "Python" }
@@ -53,7 +53,7 @@ const Certificate = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/certificate/${username}/${encodeURIComponent(selectedCourse)}`,
+        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/certificate/${username}/${encodeURIComponent(selectedCourse)}`,
         { responseType: "blob" }
       );
 
@@ -101,7 +101,7 @@ const Certificate = () => {
 
   return (
     <div className="dashboard-container">
-      <Sidebar2/>
+      <Sidebar2 />
       {/* Sidebar */}
       {/* <aside className="sidebar">
         <ul className="nav-list">

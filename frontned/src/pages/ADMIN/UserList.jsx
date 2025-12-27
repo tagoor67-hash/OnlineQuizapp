@@ -7,9 +7,9 @@ const UserList = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/users');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/admin/users`);
       const data = await response.json();
-      
+
       // Handle the new response structure
       if (data.success && data.data && data.data.users) {
         setUsers(data.data.users);
@@ -28,7 +28,7 @@ const UserList = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/admin/users/${id}`, {
         method: 'DELETE',
       });
 
@@ -50,7 +50,7 @@ const UserList = () => {
     <div className="OUTER_CONTAINER">
       <Sidebar />
       <div className="INNER_CONTAINER">
-      <h2 style={{ textAlign: "center" }}>User List</h2>
+        <h2 style={{ textAlign: "center" }}>User List</h2>
 
         <table className="dashboard-table">
           <thead>

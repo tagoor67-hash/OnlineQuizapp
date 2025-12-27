@@ -21,7 +21,7 @@ const CourseList = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/courses");
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses`);
       setCourses(res.data);
     } catch (error) {
       console.error("Error fetching courses", error);
@@ -36,7 +36,7 @@ const CourseList = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/api/courses/addcourse", {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/addcourse`, {
         name: newCourseName,
       });
 
@@ -68,7 +68,7 @@ const CourseList = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/courses/updatecourse/${courseId}`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/updatecourse/${courseId}`, {
         name: editingCourseName,
       });
 

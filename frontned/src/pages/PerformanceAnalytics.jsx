@@ -23,7 +23,7 @@ const PerformanceAnalytics = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/user/${userId}/analytics`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/user/${userId}/analytics`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,10 +64,10 @@ const PerformanceAnalytics = () => {
       {/* Sidebar */}
 
       {/* Analytics Main Section */}
-      
+
       {/* <h2 className="analytics-title">📊 Performance Analytics</h2> */}
       <div className="analytics-container">
-      <h2 className="analytics-title">📊 Performance Analytics</h2>
+        <h2 className="analytics-title">📊 Performance Analytics</h2>
         <p className="analytics-subtitle">
           Track your quiz progress and identify areas to improve.
         </p>

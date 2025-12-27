@@ -12,7 +12,7 @@ const CourseTopics = () => {
     const fetchTopics = async () => {
       try {
         const formattedCourseName = decodeURIComponent(courseName);
-        const response = await fetch(`http://localhost:5000/api/courses/topics/${formattedCourseName}`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/topics/${formattedCourseName}`);
         if (!response.ok) throw new Error("Failed to fetch topics");
 
         const data = await response.json();
@@ -44,13 +44,13 @@ const CourseTopics = () => {
             </li>
           ))}
         </ul>
-        <div style={{ textAlign: "center", marginTop: "20px" ,textDecorationColor:"yellow"}}>
+        <div style={{ textAlign: "center", marginTop: "20px", textDecorationColor: "yellow" }}>
           <button onClick={() => navigate("/courses")} className="back-button">
             Go Back
           </button>
         </div>
       </div>
-      
+
     </div>
   );
 };

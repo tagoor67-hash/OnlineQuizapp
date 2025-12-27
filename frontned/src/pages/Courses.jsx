@@ -10,7 +10,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/courses/");
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/`);
         const data = await response.json();
         setCourses(data);
       } catch (error) {
@@ -25,7 +25,7 @@ const Courses = () => {
 
   return (
     <div className="dashboard-container">
-      <Sidebar2/>
+      <Sidebar2 />
       <main className="main-content">
         <h1>Courses</h1>
 
@@ -34,13 +34,13 @@ const Courses = () => {
         ) : (
           <div className="courses-grid">
             {courses.map((course, index) => {
-              
+
               const path = `/courses/${course.name}`;
               return (
                 <Link key={index} to={path} className="course-box">
-                 
+
                   <h2>{course.name}</h2>
-            
+
                 </Link>
               );
             })}

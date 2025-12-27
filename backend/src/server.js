@@ -9,14 +9,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS configuration
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    process.env.FRONTEND_URL
+].filter(Boolean);
 
 // Middleware
 app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        
+
         if (allowedOrigins.indexOf(origin) === -1) {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
@@ -30,15 +34,19 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use("/api/courses", require("./routes/courseRoutes")); 
-app.use("/api/auth", require("./routes/authRoutes")); 
+app.use("/api/courses", require("./routes/courseRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/result", require("./routes/resultRoutes"));
-app.use("/api/leaderboard",require("./routes/leaderboard"));
-app.use("/api",require("./routes/certificateRoutes"));
+app.use("/api/leaderboard", require("./routes/leaderboard"));
+app.use("/api", require("./routes/certificateRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api", require("./routes/analyticsRoutes"));
 
 // Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;

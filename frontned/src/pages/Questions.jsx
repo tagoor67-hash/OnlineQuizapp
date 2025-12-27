@@ -36,7 +36,7 @@ const Questions = () => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/courses/questions/${courseName}/${topicId}`
+          `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/courses/questions/${courseName}/${topicId}`
         );
         if (!response.ok) throw new Error("Failed to fetch questions");
 
@@ -85,7 +85,7 @@ const Questions = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:5000/api/result/submit", {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/result/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,9 +147,8 @@ const Questions = () => {
                     className="option-radio"
                   />
                   <span
-                    className={`custom-circle ${
-                      answers[index] === opt ? "selected" : ""
-                    }`}
+                    className={`custom-circle ${answers[index] === opt ? "selected" : ""
+                      }`}
                   ></span>
                   {opt}
                 </label>

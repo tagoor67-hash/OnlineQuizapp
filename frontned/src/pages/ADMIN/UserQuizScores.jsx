@@ -10,9 +10,9 @@ const UserQuizScores = () => {
   const fetchUserQuizScores = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/admin/quiz-scores');
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/admin/quiz-scores`);
       const data = await response.json();
-      
+
       if (data.success && data.data && data.data.users) {
         setUserScores(data.data.users);
       } else {
@@ -102,7 +102,7 @@ const UserQuizScores = () => {
                     <span className="stat">Last: {user.lastQuizDate ? formatDate(user.lastQuizDate) : 'Never'}</span>
                   </div>
                 </div>
-                
+
                 <div className="quizzes-list">
                   {user.quizzes.map((quiz, index) => (
                     <div key={index} className="quiz-item">
